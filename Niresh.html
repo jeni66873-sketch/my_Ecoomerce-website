@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>CineBook Pro</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#050816;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* ================= BACKGROUND ================= */
+
+.bg-animation{
+    position:fixed;
+    inset:0;
+    background:
+    linear-gradient(130deg,#050816,#111827,#1e1b4b,#0f172a);
+    background-size:400% 400%;
+    animation:bgMove 15s ease infinite;
+    z-index:-5;
+}
+
+@keyframes bgMove{
+
+    0%{
+        background-position:0% 50%;
+    }
+
+    50%{
+        background-position:100% 50%;
+    }
+
+    100%{
+        background-position:0% 50%;
+    }
+
+}
+
+.glow{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(100px);
+    animation:float 10s infinite alternate ease-in-out;
+}
+
+.glow1{
+    width:350px;
+    height:350px;
+    background:#ff008040;
+    top:10%;
+    left:10%;
+}
+
+.glow2{
+    width:300px;
+    height:300px;
+    background:#00ffff35;
+    bottom:10%;
+    right:10%;
+    animation-duration:14s;
+}
+
+@keyframes float{
+
+    from{
+        transform:translate(0px,0px);
+    }
+
+    to{
+        transform:translate(100px,80px);
+    }
+
+}
+
+/* ================= LOGIN ================= */
+
+.login{
+    width:380px;
+    margin:120px auto;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.08);
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
+    animation:fadeIn 1s ease;
+}
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(50px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0px);
+    }
+
+}
+
+.login h2{
+    text-align:center;
+    margin-bottom:10px;
+    font-size:2rem;
+}
+
+.login p{
+    text-align:center;
+    color:#cfcfcf;
+    margin-bottom:25px;
+}
+
+.login input{
+    width:100%;
+    padding:14px;
+    margin:10px 0;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+}
+
+.login input::placeholder{
+    color:#ddd;
+}
+
+.login button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(to right,#ff0080,#7928ca);
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.login button:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 25px #ff0080;
+}
+
+.error{
+    text-align:center;
+    margin-top:15px;
+    color:#ff8fb1;
+}
+
+/* ================= MOVIES ================= */
+
+.movies,
+.booking{
+    display:none;
+    padding:50px 8%;
+    animation:fadeIn 1s ease;
+}
+
+.movies h2,
+.booking h2{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2.5rem;
+}
+
+.movie-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:35px;
+}
+
+.movie{
+    background:rgba(255,255,255,0.08);
+    border-radius:25px;
+    overflow:hidden;
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.08);
+    transition:0.5s;
+}
+
+.movie:hover{
+    transform:translateY(-15px);
+    box-shadow:0 0 30px rgba(255,0,128,0.5);
+}
+
+.movie img{
+
+    width:100%;
+
+    height:420px;
+
+    object-fit:cover;
+
+}
+
+.movie h3{
+    margin:20px 0 10px;
+    text-align:center;
+}
+
+.genre{
+    text-align:center;
+    color:#cfcfcf;
+    margin-bottom:15px;
+    font-size:14px;
+}
+
+.movie button{
+    margin:20px;
+    width:calc(100% - 40px);
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(to right,#00ffff,#7928ca);
+    color:white;
+    cursor:pointer;
+    font-weight:600;
+    transition:0.4s;
+}
+
+.movie button:hover{
+    transform:scale(1.03);
+}
+
+/* ================= BOOKING ================= */
+
+.booking{
+    max-width:700px;
+    margin:auto;
+}
+
+.select-box{
+    margin:20px 0;
+}
+
+.select-box label{
+    color:#ddd;
+}
+
+.select-box select,
+.select-box input{
+    width:100%;
+    padding:14px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    margin-top:10px;
+    background:rgba(255,255,255,0.12);
+    color:white;
+}
+
+.select-box option{
+    color:black;
+}
+
+.time-btns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:15px;
+}
+
+.time-btns button{
+    padding:10px 18px;
+    border:none;
+    border-radius:10px;
+    background:#1e293b;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.time-btns button.active{
+    background:#ff0080;
+}
+
+.book-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(to right,#ff0080,#7928ca);
+    color:white;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    margin-top:20px;
+    transition:0.4s;
+}
+
+.book-btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 0 25px #ff0080;
+}
+
+/* ================= SUCCESS POPUP ================= */
+
+.success-popup{
+
+    position:fixed;
+
+    top:50%;
+
+    left:50%;
+
+    transform:translate(-50%,-50%) scale(0);
+
+    width:420px;
+
+    max-width:90%;
+
+    background:rgba(255,255,255,0.1);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:25px;
+
+    padding:35px;
+
+    text-align:center;
+
+    z-index:9999;
+
+    box-shadow:0 0 40px rgba(255,0,128,0.5);
+
+    transition:0.5s;
+
+}
+
+.success-popup.show{
+
+    transform:translate(-50%,-50%) scale(1);
+
+}
+
+.success-popup h2{
+
+    font-size:2rem;
+
+    margin-bottom:15px;
+
+    color:#00ffcc;
+
+}
+
+.success-popup p{
+
+    color:#e5e5e5;
+
+    line-height:1.8;
+
+    margin:8px 0;
+
+}
+
+.success-popup button{
+
+    margin-top:20px;
+
+    padding:12px 30px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:linear-gradient(to right,#ff0080,#7928ca);
+
+    color:white;
+
+    cursor:pointer;
+
+    font-weight:600;
+
+    transition:0.4s;
+
+}
+
+.success-popup button:hover{
+
+    transform:scale(1.05);
+
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+    .login{
+        width:90%;
+    }
+
+    .movies,
+    .booking{
+        padding:30px 5%;
+    }
+
+    .movies h2,
+    .booking h2{
+        font-size:2rem;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Background -->
+
+<div class="bg-animation">
+
+    <div class="glow glow1"></div>
+
+    <div class="glow glow2"></div>
+
+</div>
+
+<!-- LOGIN -->
+
+<div class="login" id="login">
+
+    <h2>🎬 CineBook Pro</h2>
+
+    <p>Book Movie Tickets Instantly</p>
+
+    <input type="text" id="user" placeholder="Username">
+
+    <input type="password" id="pass" placeholder="Password">
+
+    <button onclick="loginUser()">
+        Login
+    </button>
+
+    <p class="error" id="msg"></p>
+
+</div>
+
+<!-- MOVIES -->
+
+<div class="movies" id="movies">
+
+    <h2>🔥 Now Showing</h2>
+
+    <div class="movie-grid">
+
+        <!-- LEO -->
+
+        <div class="movie">
+
+            <img src="https://images.openai.com/static-rsc-4/2QFmcOITfF15Bl3IYFr_q2BovYHnpHixTacSZdHGcW-UxyEOBVWqtFhHVC8uifaftOk5Pm69cQTILqGwMEK6vYvGrJEbu78KQutNTK9dw3BLAzLm4voZAIga569rSjCWnMcqUAH_hf1d4kQ2FmbzrswEpiQ88Lu1DT14-VNoVUM?purpose=inline">
+">
+
+            <h3>LEO</h3>
+
+            <p class="genre">
+                Action • Thriller
+            </p>
+
+            <button onclick="openBooking('LEO')">
+                Book Now
+            </button>
+
+        </div>
+
+        <!-- VIKRAM -->
+
+        <div class="movie">
+
+            <img src="https://images.openai.com/static-rsc-4/fyRN8e7YhSa5gr1PM3PrYW12doM8yn-Pc1ASFdlRZrkDKymhTlqycaHNx7D5BH93sLTIz4zxa0s2uqmVewaoT0m9zheXS_yltuRcqOXvEnB8EdbetHLmYiZVGYb3abGK5oXYWG4OZm9Q9CaSyEHrk0KnXH2aL4NsFohyMTLIVq8?purpose=inline">
+
+            <h3>VIKRAM</h3>
+
+            <p class="genre">
+                Action • Crime
+            </p>
+
+            <button onclick="openBooking('VIKRAM')">
+                Book Now
+            </button>
+
+        </div>
+
+        <!-- JAILER -->
+
+        <div class="movie">
+
+            <img src="https://images.openai.com/static-rsc-4/3TI_k57SJCpvLbKubvxOFR6vunV7m2OCUp7yua9i0_RVmlCaP_dmeAMev02XFBnwOeP7AH2VLjRAP16Kg0aNXcYPuJN0xTiPIc2iQAoD6YehUP7GVtD7IJcOeONR1aG_EXRDgSJvigFn4Et4cWJriXSZ7BccwNg-P00_C-iHt38?purpose=inline">
+
+            <h3>JAILER</h3>
+
+            <p class="genre">
+                Mass • Action
+            </p>
+
+            <button onclick="openBooking('JAILER')">
+                Book Now
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- BOOKING -->
+
+<div class="booking" id="booking">
+
+    <h2 id="movieTitle"></h2>
+
+    <div class="select-box">
+
+        <label>Theatre</label>
+
+        <select id="theatre">
+
+            <option>PVR Cinemas</option>
+
+            <option>AGS Cinemas</option>
+
+            <option>Sri Sakthi Cinemas</option>
+
+            <option>NJJ Cinemas</option>
+
+        </select>
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Date</label>
+
+        <input type="date" id="date">
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Show Time</label>
+
+        <div class="time-btns">
+
+            <button onclick="selectTime(this)">10:30 AM</button>
+
+            <button onclick="selectTime(this)">1:30 PM</button>
+
+            <button onclick="selectTime(this)">6:30 PM</button>
+
+            <button onclick="selectTime(this)">10:00 PM</button>
+
+        </div>
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Tickets</label>
+
+        <select id="tickets">
+
+            <option value="1">1 Ticket</option>
+
+            <option value="2">2 Tickets</option>
+
+            <option value="3">3 Tickets</option>
+
+            <option value="4">4 Tickets</option>
+
+            <option value="5">5 Tickets</option>
+
+        </select>
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Seat Type</label>
+
+        <select id="seatType">
+
+            <option value="150">Silver - ₹150</option>
+
+            <option value="250">Gold - ₹250</option>
+
+            <option value="400">VIP Recliner - ₹400</option>
+
+        </select>
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Food Combo</label>
+
+        <select id="food">
+
+            <option value="0">No Combo</option>
+
+            <option value="200">Popcorn + Coke - ₹200</option>
+
+            <option value="350">Burger + Fries + Coke - ₹350</option>
+
+            <option value="500">Family Combo - ₹500</option>
+
+        </select>
+
+    </div>
+
+    <div class="select-box">
+
+        <label>Payment Method</label>
+
+        <select id="payment">
+
+            <option>UPI</option>
+
+            <option>Credit Card</option>
+
+            <option>Debit Card</option>
+
+            <option>Net Banking</option>
+
+        </select>
+
+    </div>
+
+    <button class="book-btn" onclick="book()">
+
+        Confirm Booking
+
+    </button>
+
+</div>
+
+<!-- SUCCESS POPUP -->
+
+<div class="success-popup" id="successPopup">
+
+    <h2>
+        🎉 Booking Successful
+    </h2>
+
+    <p id="successText"></p>
+
+    <button onclick="closePopup()">
+        Close
+    </button>
+
+</div>
+
+<script>
+
+let selectedTime = "";
+
+/* LOGIN */
+
+function loginUser(){
+
+    if(user.value === "jenni" && pass.value === "7705"){
+
+        login.style.display = "none";
+
+        movies.style.display = "block";
+
+    }
+
+    else{
+
+        msg.innerText = "Invalid Username or Password";
+
+    }
+
+}
+
+/* OPEN BOOKING */
+
+function openBooking(movie){
+
+    movies.style.display = "none";
+
+    booking.style.display = "block";
+
+    movieTitle.innerText = "🎥 " + movie;
+
+}
+
+/* SELECT TIME */
+
+function selectTime(btn){
+
+    document.querySelectorAll(".time-btns button")
+    .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    selectedTime = btn.innerText;
+
+}
+
+/* BOOK */
+
+function book(){
+
+    if(date.value === "" || selectedTime === ""){
+
+        alert("Please select date & time");
+
+        return;
+
+    }
+
+    let ticketCount = parseInt(tickets.value);
+
+    let seatPrice = parseInt(seatType.value);
+
+    let foodPrice = parseInt(food.value);
+
+    let total =
+        (ticketCount * seatPrice) + foodPrice;
+
+    successPopup.classList.add("show");
+
+    successText.innerHTML =
+
+        "🎬 <b>Movie :</b> " + movieTitle.innerText +
+
+        "<br><br>🏢 <b>Theatre :</b> " + theatre.value +
+
+        "<br><br>📅 <b>Date :</b> " + date.value +
+
+        "<br><br>⏰ <b>Time :</b> " + selectedTime +
+
+        "<br><br>🎟 <b>Tickets :</b> " + ticketCount +
+
+        "<br><br>💳 <b>Payment :</b> " + payment.value +
+
+        "<br><br>💰 <b>Total :</b> ₹" + total +
+
+        "<br><br>🍿 Enjoy Your Movie";
+
+}
+
+/* CLOSE POPUP */
+
+function closePopup(){
+
+    successPopup.classList.remove("show");
+
+}
+
+</script>
+
+</body>
+</html>
